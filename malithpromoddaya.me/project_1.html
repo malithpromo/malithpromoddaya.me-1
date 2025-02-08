@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details</title>
+    <link rel="stylesheet" href="/style2.css">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+</head>
+<body class="tropical-body">  
+
+    <!-- Title Section -->
+    <div class="tropical-header">
+        <h1 id="project-title">Project Title</h1>
+    </div>
+
+    <!-- Image Slider -->
+    <div class="slider-container">
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper" id="slider-wrapper">
+                <!-- Dynamic images will be inserted here -->
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </div>
+
+    <!-- Project Description -->
+    <section class="project-details">
+        <p id="project-description">Project description goes here...</p>
+    </section>
+
+    <!-- Back to Portfolio -->
+    <a href="/index.html" class="back-button">🏝 Back to Portfolio</a>
+
+    <script>
+        // Get parameters from URL
+        const params = new URLSearchParams(window.location.search);
+        const title = params.get('title');
+        const images = params.get('images') ? params.get('images').split(',') : [];
+        const description = params.get('description');
+
+        // Set title and description dynamically
+        document.getElementById('project-title').textContent = title;
+        document.getElementById('project-description').textContent = description;
+
+        // Insert images into the slider
+        const sliderWrapper = document.getElementById('slider-wrapper');
+        images.forEach(img => {
+            const slide = document.createElement('div');
+            slide.classList.add('swiper-slide');
+            slide.innerHTML = `<img src="${img}" alt="Project Image">`;
+            sliderWrapper.appendChild(slide);
+        });
+
+        // Initialize Swiper slider
+        new Swiper('.mySwiper', {
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
+        });
+    </script>
+
+</body>
+</html>
